@@ -314,7 +314,13 @@ class StudentsController extends RController
 						
 					}
 				}	
-				//END saving to activity feed		
+				//END saving to activity feed	
+
+				if(defined('EMAIL_ALERT_ADDRESS'))
+				{
+					UserModule::sendMail(constant('EMAIL_ALERT_ADDRESS') ,UserModule::t("New student admitted : {student_name}",array('{student_name}'=>$old_model->firstname." ".$old_model->lastname)),UserModule::t("A new student has been admitted: {student_name}",array('{student_name}'=>$old_model->firstname." ".$old_model->lastname)));
+				}
+
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}

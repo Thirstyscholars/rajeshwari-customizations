@@ -203,7 +203,11 @@ class StudentsController extends RController
 					  }
 				  }
 
-			
+				if(defined('EMAIL_ALERT_ADDRESS'))
+				{
+					UserModule::sendMail(constant('EMAIL_ALERT_ADDRESS') ,UserModule::t("New student admitted : {student_name}",array('{student_name}'=>$profile->firstname." ".$profile->lastname)),UserModule::t("A new student has been admitted: {student_name}",array('{student_name}'=>$profile->firstname." ".$profile->lastname)));
+				}
+
 				$this->redirect(array('guardians/create','id'=>$model->id));
 			}
 		}
